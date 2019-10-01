@@ -18,12 +18,8 @@ public class Helper {
             } else {
 
                 if (data.getString("door_command").equals("open")) {
-                    Dremote_main._tvState.setText("Opened");
-                    Toast.makeText(Dremote_main._context, "Correct Message.", Toast.LENGTH_LONG).show();
-
-                    Dremote_main._formLayout.setVisibility(View.VISIBLE);
-                    Dremote_main._serverFieldsLayout.setVisibility(View.INVISIBLE);
-                    Dremote_main._buttonOpenLayout.setVisibility(View.INVISIBLE);
+                    setStatusText("Opened", "Correct Message.");
+                    setUIVisibility();
 
                     new Timer().schedule(new TimerTask() {
                         @Override
@@ -33,16 +29,12 @@ public class Helper {
                     }, 4000);
 
                 } else {
-                    Dremote_main._tvState.setText("Closed");
-                    Toast.makeText(Dremote_main._context, "Command not found", Toast.LENGTH_LONG).show();
-
+                    setStatusText("Closed", "Command not found");
                 }
             }
-
         } catch (JSONException e) {
             Log.e("Validation Message 1:", "Error:", e);
         }
-
     }
 
     protected void validateSecondMessage(JSONObject data) {
@@ -70,4 +62,14 @@ public class Helper {
         Dremote_main._buttonOpenLayout.setVisibility(View.VISIBLE);
     }
 
+    private void setStatusText(String dremoteMessage, String toastMessage){
+          Dremote_main._tvState.setText(dremoteMessage);
+          Toast.makeText(Dremote_main._context, toastMessage, Toast.LENGTH_LONG).show(); 
+    }
+
+    private void setUIVisibility(){
+            Dremote_main._formLayout.setVisibility(View.VISIBLE);
+            Dremote_main._serverFieldsLayout.setVisibility(View.INVISIBLE);
+            Dremote_main._buttonOpenLayout.setVisibility(View.INVISIBLE);
+    }
 }
