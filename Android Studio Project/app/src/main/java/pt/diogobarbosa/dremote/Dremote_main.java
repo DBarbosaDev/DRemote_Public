@@ -75,26 +75,13 @@ public class Dremote_main extends AppCompatActivity {
     private Map validateFields(String[] fields){
 
         Map result = new HashMap<>();
-        result.put("error",false);
-        result.put("message","");
+        Integer flag = 0;
 
-        if(fields.length != 3) {
-            result.put("error",true);
-            result.put("message","All fields must be filled.");
-            return result;
-        }
-
-        if(fields[0].isEmpty() || fields[1].isEmpty() || fields[2].isEmpty()) {
-            result.put("error",true);
-            result.put("message","Some field have empty values.");
-            return result;
-        }
-
-        if(Integer.parseInt(fields[1]) < 1024 || Integer.parseInt(fields[1]) > 65535) {
-            result.put("error",true);
-            result.put("message","The server port must be between 1024 and 65535.");
-            return result;
-        }
+        if(fields.length != 3) flag = 1; 
+        if(fields[0].isEmpty() || fields[1].isEmpty() || fields[2].isEmpty()) flag = 2;
+        if(Integer.parseInt(fields[1]) < 1024 || Integer.parseInt(fields[1]) > 65535) flag = 3;
+        
+        populateMap(result, flag, true);
 
         return result;
     }
@@ -116,5 +103,19 @@ public class Dremote_main extends AppCompatActivity {
         sharedEdit.putString("serverMessage",etMessage.getText().toString());
 
         sharedEdit.apply();
+    }
+
+    private void populateMap(Map map, Integer flag , Boolean err){
+        String message;
+        switch(flag){
+            case 1:
+                message = "All fields must be filled."; break;
+            case 2:
+                message = "Some field have empty values."; break;
+            case 3:
+                message = "The server port must be between 1024 and 65535."; break;
+        }
+        map.put("error", err);
+        map.put("message", message);
     }
 }
