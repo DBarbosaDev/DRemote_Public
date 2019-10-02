@@ -10,6 +10,21 @@ that will be useful to me or someone else.
 ### What is not completed?
 - The first version of mobile app is already completed, however 
 I need to finish the electronic of the door lock and the file that will control the actions.
+## Build
+### Python Server
+In order to start the core part of the project, you must build and run the Raspberry Pi Server.
+1st Edit IP Address (to local IPv4):
+```
+UDP_IP_ADDRESS = "<your_ip>"
+```
+2nd Create rule pointing to the file, allowing communication between server/client.
+3rd Run with admin privileges:
+```
+python3 dremote_server.py
+```
+
+### APK
+To install the application under your android device, just download and install the file inside the DRemote Apk folder.
 
 ## Technologies?
 ### Languages
